@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Reflection;
 using System.Timers;
 using System.Windows.Forms;
 using System.Diagnostics;
 using EventHook;
+using WindowsInput;
 
 namespace Caffeine2
 {
     class Program
     {
         #region Config Properties
-        private static TimeSpan KeyPressInterval = new TimeSpan(0,0,59);
+        private static TimeSpan KeyPressInterval = new TimeSpan(0,0,11);
         #endregion
         public static ASCIIKeys KeyToPress { get; set; } = ASCIIKeys.VK_F15;
         public static DateTime LastKeyPressEvent { get; set; } = DateTime.Now;
@@ -35,6 +37,7 @@ namespace Caffeine2
         static void GlobalKeyEvents(object sender, KeyInputEventArgs e)
         {
             LastKeyPressEvent = DateTime.Now;
+            Debug.Print("Keypress: " + e.KeyData.Keyname);
         }
 
         public enum ASCIIKeys
@@ -64,7 +67,9 @@ namespace Caffeine2
         static void SendKey()
         {
             string hexStr = "0x" + ((int)KeyToPress).ToString("X"); //Build Hexstring for selected ASCII-Key enum
-            AutoIt.AutoItX.Send("{ASC " + hexStr + "}");
+            //AutoIt.AutoItX.Send("{ASC " + hexStr + "}");
+            WindowsInput.InputSimulator s = new InputSimulator();
+            s.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.F15);
         }
     }
 }
