@@ -10,7 +10,11 @@ namespace Caffeine2
             _ = new CaffeineEngine();
 
             System.Windows.Forms.NotifyIcon k = new System.Windows.Forms.NotifyIcon();
-            
+            k.Icon = Properties.Resources.computer_78938;
+            k.Visible = true;
+
+            System.Windows.Forms.ContextMenu cxt = new System.Windows.Forms.ContextMenu();
+            //TODO: ... :)
 
             //while (true)
             //{
