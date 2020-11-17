@@ -1,24 +1,30 @@
-﻿using Gma.System.MouseKeyHook;
-using System;
+﻿using System;
 using System.Timers;
 using System.Windows.Forms;
+using System.Diagnostics;
+using EventHook;
 
 namespace Caffeine2
 {
     class Program
     {
+        #region Config Properties
+        private static TimeSpan KeyPressInterval = new TimeSpan(0,0,59);
+        #endregion
         public static ASCIIKeys KeyToPress { get; set; } = ASCIIKeys.VK_F15;
-        public static DateTime LastKeyPressEvent { get; set; }
+        public static DateTime LastKeyPressEvent { get; set; } = DateTime.Now;
 
-        private static IKeyboardEvents m_GlobalHook;
+        private static KeyboardWatcher keyboardWatcher;
         private static readonly System.Timers.Timer CaffeineTimer = new System.Timers.Timer();
         static void Main(string[] args)
         {
-            m_GlobalHook = Hook.GlobalEvents();
-            m_GlobalHook.KeyPress += GlobalKeyEvents;
-            CaffeineTimer.Elapsed += CaffeineTimer_Elapsed;
+            keyboardWatcher = new EventHookFactory().GetKeyboardWatcher();
+            keyboardWatcher.Start();
+            keyboardWatcher.OnKeyInput += GlobalKeyEvents;
 
-            SendKey();
+            CaffeineTimer.Elapsed += CaffeineTimer_Elapsed;
+            CaffeineTimer.Interval = new TimeSpan(0,0,1).TotalMilliseconds;
+            CaffeineTimer.Start();
 
             while (true)
             {
@@ -26,7 +32,7 @@ namespace Caffeine2
             }
         }
 
-        static void GlobalKeyEvents(object sender, KeyPressEventArgs e)
+        static void GlobalKeyEvents(object sender, KeyInputEventArgs e)
         {
             LastKeyPressEvent = DateTime.Now;
         }
@@ -48,15 +54,16 @@ namespace Caffeine2
 
         static void CaffeineTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            if (DateTime.Now )
+            if ((DateTime.Now - LastKeyPressEvent).TotalSeconds >= KeyPressInterval.TotalSeconds)
             {
-
+                SendKey();
+                LastKeyPressEvent = DateTime.Now;
             }
         }
 
         static void SendKey()
         {
-            string hexStr = "0x" + ((int)ASCIIKeys.VK_F15).ToString("X"); //Build Hexstring for selected ASCII-Key enum
+            string hexStr = "0x" + ((int)KeyToPress).ToString("X"); //Build Hexstring for selected ASCII-Key enum
             AutoIt.AutoItX.Send("{ASC " + hexStr + "}");
         }
     }
