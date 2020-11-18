@@ -38,6 +38,7 @@ public static class TStripItems
                     Program.engine.Start();
                 }
                 acc.Checked = Program.engine.IsActive;
+                Program.NotifyIcon.Icon = Program.engine.IsActive? Caffeine2.Properties.Resources.icon_full: Caffeine2.Properties.Resources.icon_empty;
             },
             InitialAction = (object sender, EventArgs e) => { 
                 ToolStripMenuItem acc = (ToolStripMenuItem)sender; 
@@ -60,7 +61,7 @@ public static class TStripItems
         Program.Cxt = new ContextMenuStrip();
         Program.NotifyIcon = new NotifyIcon
         {
-            Icon = Caffeine2.Properties.Resources.computer_78938,
+            Icon = Program.engine.IsActive? Caffeine2.Properties.Resources.icon_full: Caffeine2.Properties.Resources.icon_empty,
             ContextMenuStrip = Program.Cxt,
             Visible = true,
             Text = Assembly.GetExecutingAssembly().GetName().Name

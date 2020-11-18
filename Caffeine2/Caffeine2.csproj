@@ -38,7 +38,7 @@
     <StartupObject />
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>computer_78938.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EventHook, Version=1.4.113.0, Culture=neutral, PublicKeyToken=2c14189d5ed28bd7, processorArchitecture=MSIL">
@@ -90,16 +90,59 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="computer_78938.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Forms\About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\icon_empty.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\icon_full.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\logo_big.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AssetsFill\logo_10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AssetsFill\logo_20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AssetsFill\logo_30.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AssetsFill\logo_40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AssetsFill\logo_50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AssetsFill\logo_60.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AssetsFill\logo_70.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AssetsFill\logo_80.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AssetsFill\logo_90.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AssetsFill\logo_empty.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
