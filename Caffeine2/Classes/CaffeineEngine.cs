@@ -12,15 +12,17 @@ using WindowsInput.Native;
 public class CaffeineEngine : IDisposable
 {
     #region Config Properties
-    private TimeSpan KeyPressInterval = new TimeSpan(0, 0, 59);
+    private TimeSpan KeyPressInterval = new TimeSpan(0, 0, 10);
     #endregion
+
     #region Publics
     public VirtualKeyCode KeyToPress { get; set; } = VirtualKeyCode.F23;
     public DateTime LastKeyPressEvent { get; set; } = DateTime.Now;
+    public bool IsActive { get; set; }
     #endregion
 
     #region Privates
-    private readonly KeyboardWatcher keyboardWatcher;
+    private KeyboardWatcher keyboardWatcher;
     private readonly Timer CaffeineTimer = new Timer();
     private readonly InputSimulator inputSimulator = new InputSimulator();
     #endregion
@@ -28,13 +30,11 @@ public class CaffeineEngine : IDisposable
     #region Constructor
     public CaffeineEngine()
     {
-        keyboardWatcher = new EventHookFactory().GetKeyboardWatcher();
-        keyboardWatcher.Start();
-        keyboardWatcher.OnKeyInput += GlobalKeyEvents;
-
         CaffeineTimer.Elapsed += CaffeineTimer_Elapsed;
         CaffeineTimer.Interval = new TimeSpan(0, 0, 1).TotalMilliseconds;
-        CaffeineTimer.Start();
+        
+        this.Start();
+        Debug.Print("Caffeine engine running");
     }
     #endregion
     #region Events
@@ -59,13 +59,39 @@ public class CaffeineEngine : IDisposable
         this.inputSimulator.Keyboard.KeyPress(KeyToPress);
         Debug.Print("Keypress sent: " + KeyToPress.ToString());
     }
+    public void Start()
+    {
+        if (!this.CaffeineTimer.Enabled)
+        {
+            this.keyboardWatcher = new EventHookFactory().GetKeyboardWatcher(); // Need to be re-instance, start after stop doesnt work
+            this.keyboardWatcher.OnKeyInput += GlobalKeyEvents;
+            this.keyboardWatcher.Start();
+            this.CaffeineTimer.Enabled = true;
+            this.CaffeineTimer.Start();
+            this.IsActive = true;
+        }
+        Debug.Print("Caffeine started :)");
+    }
+
+    public void Stop()
+    {
+        if (this.CaffeineTimer.Enabled)
+        {
+            this.keyboardWatcher.Stop();
+            this.keyboardWatcher.OnKeyInput -= GlobalKeyEvents;
+            this.CaffeineTimer.Enabled = false;
+            this.CaffeineTimer.Stop();
+            this.IsActive = false;
+        }
+        Debug.Print("Caffeine stopped");
+    }
 
     public void Dispose()
     {
-        if (this.keyboardWatcher != null)
-        {
-            keyboardWatcher.Stop();
-        }
+        //Soft release
+        this.Stop();
+        //Call disposes
         this.CaffeineTimer.Dispose();
+        Debug.Print("Caffeine engine disposed");
     }
 }
