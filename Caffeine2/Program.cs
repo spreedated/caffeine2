@@ -17,6 +17,7 @@ namespace Caffeine2
             engine = new CaffeineEngine(); //Start the engine :)
 
             TStripItems.InitToolStripItems();
+
             // GUI needs to run in another Thread that's inside the main Thread
             // Application will run until this Thread is alive
             Application.Run(); 

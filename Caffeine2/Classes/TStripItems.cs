@@ -12,7 +12,16 @@ public static class TStripItems
     public static List<TStripItem> stripItems = new List<TStripItem>() {
         new TStripItem()
         {
-            Text = "Active",
+            Text = "&About",
+            Action = (object sender, EventArgs e)=> { new About().ShowDialog(); }
+        },
+        new TStripItem()
+        {
+            IsSeperator = true
+        },
+        new TStripItem()
+        {
+            Text = "A&ctive",
             Action = (object sender, EventArgs e)=> {
                 ToolStripMenuItem acc = (ToolStripMenuItem)sender;
                 if (Program.engine == null)
@@ -41,7 +50,7 @@ public static class TStripItems
         },
         new TStripItem()
         {
-            Text = "Exit",
+            Text = "E&xit",
             Action = (object sender, EventArgs e)=> { Program.EndApplication(); }
         }
     };
