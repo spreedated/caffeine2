@@ -104,6 +104,7 @@ namespace Caffeine2
         private void About_Load(object sender, EventArgs e)
         {
             LBL_Version.Text = "v" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            this.Icon = Properties.Resources.logo;
         }
 
         private void Btn_Ok_Click(object sender, EventArgs e)
