@@ -12,7 +12,7 @@ using WindowsInput.Native;
 public class CaffeineEngine : IDisposable
 {
     #region Config Properties
-    private TimeSpan KeyPressInterval = new TimeSpan(0, 0, 10);
+    public TimeSpan KeyPressInterval { get; set; } = new TimeSpan(0, 0, 59);
     #endregion
 
     #region Publics
@@ -28,13 +28,16 @@ public class CaffeineEngine : IDisposable
     #endregion
 
     #region Constructor
-    public CaffeineEngine()
+    public CaffeineEngine(bool start = true)
     {
         CaffeineTimer.Elapsed += CaffeineTimer_Elapsed;
         CaffeineTimer.Interval = new TimeSpan(0, 0, 1).TotalMilliseconds;
-        
-        this.Start();
-        Debug.Print("Caffeine engine running");
+
+        if (start)
+        {
+            this.Start();
+        }
+        Debug.Print("Caffeine engine instance running");
     }
     #endregion
     #region Events

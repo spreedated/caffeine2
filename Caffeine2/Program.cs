@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Diagnostics;
@@ -14,8 +16,14 @@ namespace Caffeine2
 
         static void Main(string[] args)
         {
-            engine = new CaffeineEngine(); //Start the engine :)
-
+            CLI_Args.ParseArgs(args); //Process arguments
+            engine = new CaffeineEngine(CLI_Args.Arguments.Startoff); //Instance without autorun
+#if DEBUG
+            engine.KeyPressInterval = new TimeSpan(0,0,5);
+#endif
+            //Process args
+            args.ToList().ForEach((x)=> { Debug.Print(x); });
+            
             TStripItems.InitToolStripItems();
 
             // GUI needs to run in another Thread that's inside the main Thread
