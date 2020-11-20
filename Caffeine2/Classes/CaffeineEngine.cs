@@ -16,7 +16,7 @@ public class CaffeineEngine : IDisposable
     #endregion
 
     #region Publics
-    public VirtualKeyCode KeyToPress { get; set; } = VirtualKeyCode.F23;
+    public VirtualKeyCode KeyToPress { get; set; } = CLI_Args.Arguments.KeyToPress??VirtualKeyCode.F23;
     public DateTime LastKeyPressEvent { get; set; } = DateTime.Now;
     public bool IsActive { get; set; }
     #endregion

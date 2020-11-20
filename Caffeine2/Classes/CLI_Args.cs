@@ -17,8 +17,9 @@ public static class CLI_Args
         [Option('i',"interval", HelpText = "Seconds between keys")]
         public int? Interval { get; set; }
 
-        [Option('k', "key", HelpText = "Seconds between keys")]
-        public VirtualKeyCode KeyToPress { get; set; }
+        [Option('k', "key", HelpText = "Key to press, e.g. F15")]
+        public string KeyToPressArgument { get; set; }
+        public VirtualKeyCode? KeyToPress { get; set; }
     }
 
     public static Options Arguments { get; private set; }
@@ -32,7 +33,8 @@ public static class CLI_Args
                    {
                        Arguments.Startoff = o.Startoff;
                        Arguments.Interval = o.Interval;
-                       //TODO: Arg Keycode
+                       Enum.TryParse<VirtualKeyCode>(o.KeyToPressArgument, out VirtualKeyCode acc);
+                       Arguments.KeyToPress = acc;
                    });
     }
 }

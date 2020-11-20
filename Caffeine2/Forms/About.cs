@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -105,6 +106,21 @@ namespace Caffeine2
         {
             LBL_Version.Text = "v" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
             this.Icon = Properties.Resources.logo;
+
+            // Read arguments and helptext from CLI_Args and convert their attribues (if has one) to text
+            CLI_Args.Arguments.GetType().GetProperties().ToList().ForEach(y=> {
+                if (y.CustomAttributes.Count() <= 0)
+                {
+                    return;
+                }
+                ListViewItem acc = new ListViewItem()
+                {
+                    Text = "-" + Convert.ToString(y.CustomAttributes.ToList()[0].ConstructorArguments[0].Value)
+                };
+                acc.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = "--" + (string)y.CustomAttributes.ToList()[0].ConstructorArguments[1].Value });
+                acc.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = (string)y.CustomAttributes.ToList()[0].NamedArguments.Where(x => x.MemberName == "HelpText").FirstOrDefault().TypedValue.Value });
+                LSV_Arguments.Items.Add(acc);
+            });
         }
 
         private void Btn_Ok_Click(object sender, EventArgs e)
