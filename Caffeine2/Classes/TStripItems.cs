@@ -9,6 +9,9 @@ using System.Reflection;
 
 public static class TStripItems
 {
+    /// <summary>
+    /// List of Items that will be converted to ContextMenu
+    /// </summary>
     public static List<TStripItem> stripItems = new List<TStripItem>() {
         new TStripItem()
         {
@@ -86,21 +89,27 @@ public static class TStripItems
         }
     };
 
+    /// <summary>
+    /// 
+    /// </summary>
     private static readonly Timer nextKeyPressTimer = new Timer();
     private static void NextKeyPressTimer_Tick(object sender, EventArgs e)
     {
-        ToolStripMenuItem acc = Program.Cxt.Items.OfType<ToolStripMenuItem>().Where(x => x.Name == "NextKeyPress").FirstOrDefault();
-        ToolStripMenuItem acc0 = Program.Cxt.Items.OfType<ToolStripMenuItem>().Where(x => x.Name == "OverallKeyPresses").FirstOrDefault();
-        ToolStripMenuItem acc1 = Program.Cxt.Items.OfType<ToolStripMenuItem>().Where(x => x.Name == "KeyPressesInRun").FirstOrDefault();
-        if (Program.engine.IsActive)
+        ToolStripMenuItem[] bac = new ToolStripMenuItem[3];
+
+        bac[0] = Program.Cxt.Items.OfType<ToolStripMenuItem>().Where(x => x.Name == "NextKeyPress").FirstOrDefault();
+        bac[1] = Program.Cxt.Items.OfType<ToolStripMenuItem>().Where(x => x.Name == "OverallKeyPresses").FirstOrDefault();
+        bac[2] = Program.Cxt.Items.OfType<ToolStripMenuItem>().Where(x => x.Name == "KeyPressesInRun").FirstOrDefault();
+
+        if (Program.engine.IsActive && bac.Where(x=>x == null).Count() == 0)
         {
-            acc.Text = Program.engine.KeyToPress.ToString() + " in " +  (Program.engine.KeyPressInterval - DateTime.Now.Subtract(Program.engine.LastKeyPressEvent)).ToString(@"hh\:mm\:ss");
-            acc0.Text = $"Overall presses: {(int)(Program.engine.OverallKeypresses/2)}";
-            acc1.Text = $"Session presses: {(int)(Program.engine.KeypressedInRun/2)}";
+            bac[0].Text = Program.engine.KeyToPress.ToString() + " in " +  (Program.engine.KeyPressInterval - DateTime.Now.Subtract(Program.engine.LastKeyPressEvent)).ToString(@"hh\:mm\:ss");
+            bac[1].Text = $"Overall presses: {(int)(Program.engine.OverallKeypresses/2)}";
+            bac[2].Text = $"Session presses: {(int)(Program.engine.KeypressedInRun/2)}";
         }
         else 
         {
-            acc.Text = " --- ";
+            bac[0].Text = " --- ";
         }
     }
 
