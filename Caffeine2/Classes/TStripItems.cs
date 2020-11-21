@@ -12,6 +12,21 @@ public static class TStripItems
     public static List<TStripItem> stripItems = new List<TStripItem>() {
         new TStripItem()
         {
+            Name = "NextKeyPress",
+            InitialAction = (object sender, EventArgs e)=> {
+                nextKeyPressTimer.Enabled = true;
+                nextKeyPressTimer.Interval = 1000;
+                nextKeyPressTimer.Tick += NextKeyPressTimer_Tick;
+                nextKeyPressTimer.Start();
+            },
+            Enabled = false
+        },
+        new TStripItem()
+        {
+            IsSeperator = true
+        },
+        new TStripItem()
+        {
             Text = "&About",
             Action = (object sender, EventArgs e)=> { new About().ShowDialog(); }
         },
@@ -56,6 +71,20 @@ public static class TStripItems
         }
     };
 
+    private static readonly Timer nextKeyPressTimer = new Timer();
+    private static void NextKeyPressTimer_Tick(object sender, EventArgs e)
+    {
+        ToolStripMenuItem acc = Program.Cxt.Items.OfType<ToolStripMenuItem>().Where(x => x.Name == "NextKeyPress").FirstOrDefault();
+        if (Program.engine.IsActive)
+        {
+            acc.Text = Program.engine.KeyToPress.ToString() + ": " +  (Program.engine.KeyPressInterval - DateTime.Now.Subtract(Program.engine.LastKeyPressEvent)).ToString(@"hh\:mm\:ss");
+        }
+        else 
+        {
+            acc.Text = " --- ";
+        }
+    }
+
     public static void InitToolStripItems()
     {
         Program.Cxt = new ContextMenuStrip();
@@ -77,7 +106,9 @@ public static class TStripItems
             ToolStripMenuItem o = new ToolStripMenuItem()
             {
                 Text = item.Text,
-                Checked = item.Checked
+                Checked = item.Checked,
+                Name = item.Name,
+                Enabled = item.Enabled
             };
             o.Click += item.Action;
             if (item.InitialAction != null)

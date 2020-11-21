@@ -12,7 +12,7 @@ public static class CLI_Args
     public class Options
     {
         [Option('s', "startoff", Required = false, HelpText = "Disable autostart")]
-        public bool Startoff { get; set; }
+        public bool? Startoff { get; set; }
 
         [Option('i',"interval", HelpText = "Seconds between keys")]
         public int? Interval { get; set; }
@@ -34,7 +34,10 @@ public static class CLI_Args
                        Arguments.Startoff = o.Startoff;
                        Arguments.Interval = o.Interval;
                        Enum.TryParse<VirtualKeyCode>(o.KeyToPressArgument, out VirtualKeyCode acc);
-                       Arguments.KeyToPress = acc;
+                       if ((int)acc != 0)
+                       {
+                            Arguments.KeyToPress = acc;
+                       }
                    });
     }
 }

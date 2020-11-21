@@ -1,9 +1,11 @@
 ﻿using System;
 
-public struct TStripItem
+public class TStripItem
 {
     public bool IsSeperator { get; set; }
     public string Text { get; set; }
+    public string Name { get; set; }
+    public bool Enabled { get; set; } = true;
     public bool Checked { get; set; }
     public EventHandler Action { get; set; }
     /// <summary>
