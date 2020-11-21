@@ -19,6 +19,8 @@ public class CaffeineEngine : IDisposable
     public VirtualKeyCode KeyToPress { get; set; } = CLI_Args.Arguments.KeyToPress??VirtualKeyCode.F23;
     public DateTime LastKeyPressEvent { get; set; } = DateTime.Now;
     public bool IsActive { get; set; }
+    public int OverallKeypresses { get; private set; }
+    public int KeypressedInRun { get; private set; }
     #endregion
 
     #region Privates
@@ -45,6 +47,13 @@ public class CaffeineEngine : IDisposable
     {
         LastKeyPressEvent = DateTime.Now;
         Debug.Print("Keypress: " + e.KeyData.Keyname);
+        Enum.TryParse<VirtualKeyCode>(e.KeyData.Keyname, out VirtualKeyCode acc);
+
+        if (this.KeyToPress == acc)
+        {
+            this.OverallKeypresses++;
+            this.KeypressedInRun++;
+        }
     }
 
     private void CaffeineTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -72,6 +81,7 @@ public class CaffeineEngine : IDisposable
             this.CaffeineTimer.Enabled = true;
             this.CaffeineTimer.Start();
             this.IsActive = true;
+            this.KeypressedInRun = 0;
         }
         Debug.Print("Caffeine started :)");
     }

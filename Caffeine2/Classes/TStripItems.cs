@@ -12,6 +12,21 @@ public static class TStripItems
     public static List<TStripItem> stripItems = new List<TStripItem>() {
         new TStripItem()
         {
+            Text = "Statistics:",
+            Enabled = false
+        },
+        new TStripItem()
+        {
+            Name = "OverallKeyPresses",
+            Enabled = false
+        },
+        new TStripItem()
+        {
+            Name = "KeyPressesInRun",
+            Enabled = false
+        },
+        new TStripItem()
+        {
             Name = "NextKeyPress",
             InitialAction = (object sender, EventArgs e)=> {
                 nextKeyPressTimer.Enabled = true;
@@ -75,9 +90,13 @@ public static class TStripItems
     private static void NextKeyPressTimer_Tick(object sender, EventArgs e)
     {
         ToolStripMenuItem acc = Program.Cxt.Items.OfType<ToolStripMenuItem>().Where(x => x.Name == "NextKeyPress").FirstOrDefault();
+        ToolStripMenuItem acc0 = Program.Cxt.Items.OfType<ToolStripMenuItem>().Where(x => x.Name == "OverallKeyPresses").FirstOrDefault();
+        ToolStripMenuItem acc1 = Program.Cxt.Items.OfType<ToolStripMenuItem>().Where(x => x.Name == "KeyPressesInRun").FirstOrDefault();
         if (Program.engine.IsActive)
         {
-            acc.Text = Program.engine.KeyToPress.ToString() + ": " +  (Program.engine.KeyPressInterval - DateTime.Now.Subtract(Program.engine.LastKeyPressEvent)).ToString(@"hh\:mm\:ss");
+            acc.Text = Program.engine.KeyToPress.ToString() + " in " +  (Program.engine.KeyPressInterval - DateTime.Now.Subtract(Program.engine.LastKeyPressEvent)).ToString(@"hh\:mm\:ss");
+            acc0.Text = $"Overall presses: {(int)(Program.engine.OverallKeypresses/2)}";
+            acc1.Text = $"Session presses: {(int)(Program.engine.KeypressedInRun/2)}";
         }
         else 
         {

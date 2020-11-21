@@ -19,7 +19,7 @@ namespace Caffeine2
             CLI_Args.ParseArgs(args); //Process arguments
             engine = new CaffeineEngine(CLI_Args.Arguments.Startoff??true); //Instance without autorun
 #if DEBUG
-            //engine.KeyPressInterval = new TimeSpan(0,0,5);
+            engine.KeyPressInterval = new TimeSpan(0,0,12);
 #endif
             //Process args
             args.ToList().ForEach((x)=> { Debug.Print(x); });
