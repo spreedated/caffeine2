@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Data;
-using System.Linq;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Diagnostics;
-using System.Reflection;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Caffeine2
 {
@@ -17,18 +14,18 @@ namespace Caffeine2
         static void Main(string[] args)
         {
             CLI_Args.ParseArgs(args); //Process arguments
-            engine = new CaffeineEngine(CLI_Args.Arguments.Startoff??true); //Instance without autorun
+            engine = new CaffeineEngine(CLI_Args.Arguments.Startoff ?? true);
 #if DEBUG
-            engine.KeyPressInterval = new TimeSpan(0,0,12);
+            engine.KeyPressInterval = new TimeSpan(0, 0, 12);
 #endif
             //Process args
-            args.ToList().ForEach((x)=> { Debug.Print(x); });
-            
+            args.ToList().ForEach((x) => { Debug.Print(x); });
+
             TStripItems.InitToolStripItems();
 
             // GUI needs to run in another Thread that's inside the main Thread
             // Application will run until this Thread is alive
-            Application.Run(); 
+            Application.Run();
         }
 
         public static void EndApplication(int exitCode = 0)

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CommandLine;
-using Caffeine2;
+﻿using CommandLine;
+using System;
 using WindowsInput.Native;
 
 public static class CLI_Args
@@ -14,7 +9,7 @@ public static class CLI_Args
         [Option('s', "startoff", Required = false, HelpText = "Disable autostart")]
         public bool? Startoff { get; set; }
 
-        [Option('i',"interval", HelpText = "Seconds between keys")]
+        [Option('i', "interval", HelpText = "Seconds between keys")]
         public int? Interval { get; set; }
 
         [Option('k', "key", HelpText = "Key to press, e.g. F15")]
@@ -36,7 +31,7 @@ public static class CLI_Args
                        Enum.TryParse<VirtualKeyCode>(o.KeyToPressArgument, out VirtualKeyCode acc);
                        if ((int)acc != 0)
                        {
-                            Arguments.KeyToPress = acc;
+                           Arguments.KeyToPress = acc;
                        }
                    });
     }

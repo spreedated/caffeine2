@@ -1,11 +1,7 @@
-﻿using System;
+﻿using EventHook;
+using System;
 using System.Diagnostics;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
-using EventHook;
 using WindowsInput;
 using WindowsInput.Native;
 
@@ -16,7 +12,7 @@ public class CaffeineEngine : IDisposable
     #endregion
 
     #region Publics
-    public VirtualKeyCode KeyToPress { get; set; } = CLI_Args.Arguments.KeyToPress??VirtualKeyCode.F23;
+    public VirtualKeyCode KeyToPress { get; set; } = CLI_Args.Arguments.KeyToPress ?? VirtualKeyCode.F23;
     public DateTime LastKeyPressEvent { get; set; } = DateTime.Now;
     public bool IsActive { get; set; }
     public int OverallKeypresses { get; private set; }

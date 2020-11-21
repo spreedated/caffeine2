@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace Caffeine2
 {
@@ -41,7 +35,7 @@ namespace Caffeine2
 
             aniTimerDelay.Tick += AniTimerDelay_Tick;
             aniTimerDelay.Enabled = true;
-            aniTimerDelay.Interval = (int)new TimeSpan(0,0,3).TotalMilliseconds;
+            aniTimerDelay.Interval = (int)new TimeSpan(0, 0, 3).TotalMilliseconds;
             aniTimerDelay.Start();
         }
 
@@ -109,7 +103,8 @@ namespace Caffeine2
             this.Icon = Properties.Resources.logo;
 
             // Read arguments and helptext from CLI_Args and convert their attribues (if has one) to text
-            CLI_Args.Arguments.GetType().GetProperties().ToList().ForEach(y=> {
+            CLI_Args.Arguments.GetType().GetProperties().ToList().ForEach(y =>
+            {
                 if (y.CustomAttributes.Count() <= 0)
                 {
                     return;
