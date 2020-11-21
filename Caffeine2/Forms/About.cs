@@ -55,6 +55,7 @@ namespace Caffeine2
         }
         private void AniTimer_Tick(object sender, EventArgs e)
         {
+            PBX_Logo.Image.Dispose(); // Prevent memory leak
             switch (pos)
             {
                 case 0:
@@ -125,7 +126,10 @@ namespace Caffeine2
 
         private void Btn_Ok_Click(object sender, EventArgs e)
         {
-            this.Close();
+            aniTimer.Dispose(); // Prevent memory leak
+            aniTimerDelay.Dispose(); // Prevent memory leak
+            PBX_Logo.Dispose(); // Prevent memory leak
+            this.Dispose();
         }
     }
 }
