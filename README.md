@@ -3,6 +3,7 @@
 Caffeine2
 =========
 ![Logo](Assets/logo.png)
+
 Prevents your PC from sleeping, locking, activating screensaver or being afk in messenger.
 
 ![Screenshot](Screenshots/1.png)
