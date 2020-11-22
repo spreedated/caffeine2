@@ -1,12 +1,18 @@
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=35WE5NU48AUMA&source=url)
 
+(Assets/logo.png)
+
 Caffeine2
 =========
 Prevents your PC from sleeping, locking, activating screensaver or being afk in messenger.
 
+(Screenshots/1.png)
+
 ### Features
 - Runs in background
 - Presses F23 (or any other Key defined by CLI parameter)
+
+(Screenshots/2.png)
 
 ### Enjoying this?
 Just star the repo or make a donation.
