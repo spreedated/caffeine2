@@ -37,10 +37,10 @@ namespace Caffeine2
             this.LBL_Cli = new System.Windows.Forms.Label();
             this.LSV_Arguments = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LBL_Copyright = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.PBX_Logo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -92,7 +92,7 @@ namespace Caffeine2
             this.label1.Size = new System.Drawing.Size(224, 44);
             this.label1.TabIndex = 4;
             this.label1.Text = "Prevents your PC from sleeping, locking, \r\nactivating screensaver or being afk in" +
-    " messanger.\r\n";
+    " messenger.\r\n";
             // 
             // LBL_Cli
             // 
@@ -128,6 +128,11 @@ namespace Caffeine2
             this.columnHeader1.Text = "Short";
             this.columnHeader1.Width = 42;
             // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Long";
+            this.columnHeader3.Width = 118;
+            // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Description";
@@ -154,11 +159,6 @@ namespace Caffeine2
             this.linkLabel1.TabIndex = 8;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "www.zhornsoftware.co.uk/caffeine/";
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Long";
-            this.columnHeader3.Width = 118;
             // 
             // About
             // 
