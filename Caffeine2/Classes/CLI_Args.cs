@@ -2,37 +2,47 @@
 using System;
 using WindowsInput.Native;
 
-public static class CLI_Args
+namespace Caffeine2
 {
-    public class Options
+    public class CLI_Args
     {
-        [Option('s', "startoff", Required = false, HelpText = "Disable autostart")]
-        public bool? Startoff { get; set; }
+        public class Options
+        {
+            [Option('s', "startoff", Required = false, HelpText = "Disable autostart")]
+            public bool Startoff { get; set; }
 
-        [Option('i', "interval", HelpText = "Seconds between keys")]
-        public int? Interval { get; set; }
+            [Option('i', "interval", HelpText = "Seconds between keys")]
+            public int? IntervalArgument { get; set; }
+            public TimeSpan? Interval { get; set; }
 
-        [Option('k', "key", HelpText = "Key to press, e.g. F15")]
-        public string KeyToPressArgument { get; set; }
-        public VirtualKeyCode? KeyToPress { get; set; }
-    }
+            [Option('k', "key", HelpText = "Key to press, e.g. F15")]
+            public string KeyToPressArgument { get; set; }
+            public VirtualKeyCode? KeyToPress { get; set; }
+        }
 
-    public static Options Arguments { get; private set; }
+        public Options Arguments { get; private set; }
 
-    public static void ParseArgs(string[] args)
-    {
-        Arguments = new Options();
+        public void ParseArgs(string[] args)
+        {
+            Arguments = new Options();
 
-        Parser.Default.ParseArguments<Options>(args)
-                   .WithParsed<Options>(o =>
-                   {
-                       Arguments.Startoff = o.Startoff;
-                       Arguments.Interval = o.Interval;
-                       Enum.TryParse<VirtualKeyCode>(o.KeyToPressArgument, out VirtualKeyCode acc);
-                       if ((int)acc != 0)
+            Parser.Default.ParseArguments<Options>(args)
+                       .WithParsed<Options>(o =>
                        {
-                           Arguments.KeyToPress = acc;
-                       }
-                   });
+                           Arguments.Startoff = o.Startoff;
+                           if (o.IntervalArgument != null)
+                           {
+                               Arguments.Interval = TimeSpan.FromSeconds((double)o.IntervalArgument);
+                           }
+                           if (o.KeyToPressArgument != null)
+                           {
+                               Enum.TryParse<VirtualKeyCode>(o.KeyToPressArgument.ToUpper(), out VirtualKeyCode acc);
+                               if ((int)acc != 0)
+                               {
+                                   Arguments.KeyToPress = acc;
+                               }
+                           }
+                       });
+        }
     }
 }

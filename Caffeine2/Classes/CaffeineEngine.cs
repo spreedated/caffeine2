@@ -4,15 +4,16 @@ using System.Diagnostics;
 using System.Timers;
 using WindowsInput;
 using WindowsInput.Native;
+using Caffeine2;
 
 public class CaffeineEngine : IDisposable
 {
     #region Config Properties
-    public TimeSpan KeyPressInterval { get; set; } = new TimeSpan(0, 0, 59);
+    public TimeSpan KeyPressInterval { get; set; } = Program.CommandLineOptions.Arguments.Interval ?? new TimeSpan(0, 0, 59);
     #endregion
 
     #region Publics
-    public VirtualKeyCode KeyToPress { get; set; } = CLI_Args.Arguments.KeyToPress ?? VirtualKeyCode.F23;
+    public VirtualKeyCode KeyToPress { get; set; } = Program.CommandLineOptions.Arguments.KeyToPress ?? VirtualKeyCode.F23;
     public DateTime LastKeyPressEvent { get; set; } = DateTime.Now;
     public bool IsActive { get; set; }
     public int OverallKeypresses { get; private set; }

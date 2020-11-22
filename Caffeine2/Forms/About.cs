@@ -103,7 +103,7 @@ namespace Caffeine2
             this.Icon = Properties.Resources.logo;
 
             // Read arguments and helptext from CLI_Args and convert their attribues (if has one) to text
-            CLI_Args.Arguments.GetType().GetProperties().ToList().ForEach(y =>
+            Program.CommandLineOptions.Arguments.GetType().GetProperties().ToList().ForEach(y =>
             {
                 if (y.CustomAttributes.Count() <= 0)
                 {

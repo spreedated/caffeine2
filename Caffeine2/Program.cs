@@ -5,16 +5,18 @@ using System.Windows.Forms;
 
 namespace Caffeine2
 {
-    class Program
+    public class Program
     {
         public static CaffeineEngine engine;
         public static NotifyIcon NotifyIcon;
         public static ContextMenuStrip Cxt;
+        public static CLI_Args CommandLineOptions;
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            CLI_Args.ParseArgs(args); //Process arguments
-            engine = new CaffeineEngine(CLI_Args.Arguments.Startoff ?? true);
+            CommandLineOptions = new CLI_Args();
+            CommandLineOptions.ParseArgs(args); //Process arguments
+            engine = new CaffeineEngine(!CommandLineOptions.Arguments.Startoff);
 #if DEBUG
             engine.KeyPressInterval = new TimeSpan(0, 0, 12);
 #endif
